@@ -8,6 +8,7 @@ const Counter = ()=>{
   return (
     <div>
       <div>
+        
         <button
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
@@ -25,3 +26,5 @@ const Counter = ()=>{
     </div>
   )
 }
+
+export default Counter
