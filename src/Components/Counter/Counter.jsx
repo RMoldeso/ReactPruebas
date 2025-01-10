@@ -8,7 +8,6 @@ const Counter = ()=>{
   return (
     <div>
       <div>
-        
         <button
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
