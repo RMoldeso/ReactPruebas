@@ -19,7 +19,7 @@ const Home = () => {
                   logoImage={reactLogo}
               />
               <OpenLink
-                  redirectURL="https://github.com/dheeyi/desarrollo-frontend-react-2025"
+                  redirectURL="https://github.com/RMoldeso/ReactPruebas"
                   logoImage={githubLogo}
               />
           </div>
