@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import ModalInfo from "../Modals/Modalinfo.jsx";
+import ModalInfo from "../Modals/ModalInfo.jsx";
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUsername, setEmail, setPassword } from '../../store/form/formSlice.js';
