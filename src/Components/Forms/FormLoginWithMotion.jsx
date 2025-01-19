@@ -10,23 +10,7 @@ const FormWithMotionAndHook = ({ titleForm }) => {
     const { module, username, email, password } = useSelector((state) => state.form);
 
     const [showModal, setShowModal] = useState(false);
-    const [modalMessage, setModalMessage] = useState(""); 
-    const [isError, setIsError] = useState(false); 
-
-    
-    const validateForm = () => {
-        const validUsername = "romoldes"; // Valores válidos predefinidos
-        const validEmail = "moldesrodrigor@gmail.com";
-        const validPassword = "mod7USIP-RODRIMOLDES";
-
-        const isValid =
-            username === validUsername &&
-            email === validEmail &&
-            password === validPassword;
-
-        console.log("Validación de formulario:", { username, email, password, isValid });
-        return isValid;
-    };
+    const [modalType, setModalType] = useState("success"); // Estado para el tipo de modal
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,22 +20,23 @@ const FormWithMotionAndHook = ({ titleForm }) => {
         if (name === "password") dispatch(setPassword(value));
     };
 
-   
     const handleSubmit = (e) => {
         e.preventDefault();
 
-      
-        if (validateForm()) {
-            console.log("Datos correctos, mostrando mensaje de éxito");
-            setModalMessage("¡Bienvenido romoldes!"); // Mensaje de éxito
-            setIsError(false);
-        } else {
-            console.log("Datos incorrectos, mostrando mensaje de error");
-            setModalMessage("Error: Username/Password incorrectos."); // Mensaje de error
-            setIsError(true);
-        }
+        const isValid =
+            username === "romoldes" &&
+            email === "moldesrodrigor@gmail.com" &&
+            password === "mod7USIP-RODRIMOLDES";
 
-        setShowModal(true); // Mostrar el modal
+        if (isValid) {
+            setModalType("success"); // Modal verde
+            setShowModal(true);
+            console.log("¡Logeado con éxito!");
+        } else {
+            setModalType("error"); // Modal rojo
+            setShowModal(true);
+            console.log("Error: Datos incorrectos");
+        }
     };
 
     const onCloseModalInfo = () => {
@@ -67,8 +52,8 @@ const FormWithMotionAndHook = ({ titleForm }) => {
         >
             <ModalInfo
                 visible={showModal}
-                message={modalMessage} // Mostrar el mensaje correspondiente
-                isError={isError} // Pasar si es un error o no
+                message={modalType === "success" ? "¡Logeado con éxito!" : "Error: Datos incorrectos"}
+                type={modalType}
                 onClose={onCloseModalInfo}
             />
             <form onSubmit={handleSubmit}>
@@ -91,7 +76,7 @@ const FormWithMotionAndHook = ({ titleForm }) => {
                                 type="text"
                                 name="module"
                                 value={module}
-                                disabled // Deshabilitar edición del campo
+                                disabled
                             />
                         </label>
                     </div>
@@ -163,4 +148,3 @@ const FormWithMotionAndHook = ({ titleForm }) => {
 };
 
 export default FormWithMotionAndHook;
-
