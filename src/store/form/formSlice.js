@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     module: 'React Mod7', // Valor fijo que no puede ser editado
-    Username: '',
-    Email: '',
-    password: 'mod7USIP-RODRIMOLDES'
+    username: "",
+    email: "",
+    password: "mod7USIP-RODRIMOLDES"
   };
   
   const formSlice = createSlice({
@@ -12,11 +12,11 @@ const initialState = {
     initialState,
     reducers: {
       setUsername: (state, action) => {
-        state.Username = action.payload;
+        state.username = action.payload;
       },
       
       setEmail: (state, action) => {
-        state.Email = action.payload;
+        state.email = action.payload;
       },
       
       setPassword: (state, action) => {

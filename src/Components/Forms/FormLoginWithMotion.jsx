@@ -1,17 +1,33 @@
 import { motion } from "motion/react";
 import ModalInfo from "../Modals/ModalInfo.jsx";
 import { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { setUsername, setEmail, setPassword } from '../../store/form/formSlice.js';
+import { useSelector, useDispatch } from "react-redux";
+import { setUsername, setEmail, setPassword } from "../../store/form/formSlice.js";
 
-// eslint-disable-next-line react/prop-types
+
 const FormWithMotionAndHook = ({ titleForm }) => {
     const dispatch = useDispatch();
     const { module, username, email, password } = useSelector((state) => state.form);
 
     const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState(""); 
+    const [isError, setIsError] = useState(false); 
 
-    // Manejar el cambio en los campos del formulario
+    
+    const validateForm = () => {
+        const validUsername = "romoldes"; // Valores válidos predefinidos
+        const validEmail = "moldesrodrigor@gmail.com";
+        const validPassword = "mod7USIP-RODRIMOLDES";
+
+        const isValid =
+            username === validUsername &&
+            email === validEmail &&
+            password === validPassword;
+
+        console.log("Validación de formulario:", { username, email, password, isValid });
+        return isValid;
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -20,11 +36,22 @@ const FormWithMotionAndHook = ({ titleForm }) => {
         if (name === "password") dispatch(setPassword(value));
     };
 
-    // Manejar el envío del formulario
+   
     const handleSubmit = (e) => {
         e.preventDefault();
-        setShowModal(true); // Mostrar modal con mensaje de éxito
-        console.log('Datos del formulario enviados:', { module, username, email, password });
+
+      
+        if (validateForm()) {
+            console.log("Datos correctos, mostrando mensaje de éxito");
+            setModalMessage("¡Bienvenido romoldes!"); // Mensaje de éxito
+            setIsError(false);
+        } else {
+            console.log("Datos incorrectos, mostrando mensaje de error");
+            setModalMessage("Error: Username/Password incorrectos."); // Mensaje de error
+            setIsError(true);
+        }
+
+        setShowModal(true); // Mostrar el modal
     };
 
     const onCloseModalInfo = () => {
@@ -40,7 +67,8 @@ const FormWithMotionAndHook = ({ titleForm }) => {
         >
             <ModalInfo
                 visible={showModal}
-                message="Formulario enviado!!!"
+                message={modalMessage} // Mostrar el mensaje correspondiente
+                isError={isError} // Pasar si es un error o no
                 onClose={onCloseModalInfo}
             />
             <form onSubmit={handleSubmit}>
@@ -58,7 +86,7 @@ const FormWithMotionAndHook = ({ titleForm }) => {
                 >
                     <div>
                         <label>
-                            module:
+                            Module:
                             <input
                                 type="text"
                                 name="module"
@@ -113,7 +141,7 @@ const FormWithMotionAndHook = ({ titleForm }) => {
                         <label>
                             Password:
                             <input
-                                type="text"
+                                type="password"
                                 name="password"
                                 value={password}
                                 onChange={handleChange}
@@ -135,3 +163,4 @@ const FormWithMotionAndHook = ({ titleForm }) => {
 };
 
 export default FormWithMotionAndHook;
+
